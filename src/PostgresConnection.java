@@ -1,16 +1,9 @@
-
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.sql.DriverManager;  
 import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -22,12 +15,10 @@ import java.sql.ResultSet;
  * @author Mehemmed Memmedov
  */
 public class PostgresConnection {
-    public static void main(String[] args) {
+    
+    public static Connection getConnection() {
         
         Connection connection = null;
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-
         try {
             Properties properties = new Properties();
             properties.load(new FileInputStream("src\\connection.properties"));
@@ -49,14 +40,8 @@ public class PostgresConnection {
             System.out.println("Postgres Jdbc driver yuklenmedi...");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-        }finally{
-            try {
-                if(connection != null && !connection.isClosed()){
-                    connection.close();
-                }
-            } catch (Exception e) {
-            }
         }
+        return connection;
         
     }
 }
